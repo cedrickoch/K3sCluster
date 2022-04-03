@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fronius
+  labels:
+    app: fronius
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fronius
+  template:
+    metadata:
+      labels:
+        app: fronius
+    spec:
+      containers:
+      - name: fronius
+        image: 4324363/fronius:1.4
+        env:
+          - name: fronius_ip
+            value: "192.168.188.56"
+          - name: smartmeter
+            value: "1"
+          - name: bucket
+            value: "fronius"
+          - name: org
+            value: "home"
+          - name: token
+            value: "-ixdkEbRUt2lxiZ0WuXOr8lpm2qoQPrpXXkgmo-oWW77DdH7vo7OJkWByVLJhtRzHbVwMkY0LfZ6w-s-dnLBAg=="
+          - name: influxhost    
+            value: "influxdb-0.influxdb.default.svc.cluster.local"
